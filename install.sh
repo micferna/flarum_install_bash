@@ -66,7 +66,7 @@ sudo dpkg-reconfigure tzdata
 apt update && apt upgrade -y
 
 # Installe les paquets requis
-apt install -y zip unzip curl wget git php php-cli php-fpm php-common php-mbstring php-gd php-xml php-mysql php-curl php-zip mariadb-server nginx
+apt install -y zip unzip curl wget git php php-cli php-fpm php-common php-mbstring php-gd php-xml php-mysql php-curl mariadb-server nginx
 
 # Active les modules PHP nécessaires
 phpenmod dom gd json mbstring openssl pdo_mysql tokenizer
@@ -123,12 +123,9 @@ sudo systemctl restart nginx
 cd /var/www/flarum
 sudo -u www-data composer create-project flarum/flarum . --stability=beta
 sudo -u www-data composer require flarum-lang/french
-
 # Plugin ajouté pour installer d'autres plugins Flarum plus rapidement.
 sudo -u www-data composer require bilgehanars/packman:"*" 
 sudo -u www-data composer require flarum/package-manager:"@beta"
 
-echo "Flarum a été installé avec succès sur $domain."
-sudo -u www-data composer require flarum/package-manager:"@beta"
 
 echo "Flarum a été installé avec succès sur $domain."

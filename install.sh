@@ -66,7 +66,7 @@ sudo dpkg-reconfigure tzdata
 apt update && apt upgrade -y
 
 # Installe les paquets requis
-apt install -y zip unzip curl wget git php php-cli php-fpm php-common php-mbstring php-gd php-xml php-mysql php-curl mariadb-server nginx
+apt install -y zip unzip curl wget git php php-cli php-fpm php-common php-mbstring php-gd php-xml php-mysql php-curl php-zip mariadb-server nginx
 
 # Active les modules PHP nécessaires
 phpenmod dom gd json mbstring openssl pdo_mysql tokenizer

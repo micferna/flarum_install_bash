@@ -21,6 +21,7 @@ check_expect() {
 check_expect
 
 # Demande les informations sur le domaine et la base de données
+clear
 read -p "Entrez le nom de domaine (par exemple, example.com) : " domain
 read -p "Entrez le nom de la base de données : " dbname
 read -p "Entrez le nom d'utilisateur de la base de données : " dbuser

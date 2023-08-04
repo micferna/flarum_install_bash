@@ -6,6 +6,20 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
+check_expect() {
+    if ! command -v expect &> /dev/null; then
+        echo "Le paquet 'expect' n'est pas installé."
+        read -p "Voulez-vous installer 'expect' maintenant ? (O/n) : " choice
+        if [[ $choice == "O" || $choice == "o" ]]; then
+            sudo apt install expect
+        else
+            echo "Vous devez installer 'expect' pour continuer l'exécution du script."
+            exit 1
+        fi
+    fi
+}
+check_expect
+
 # Demande les informations sur le domaine et la base de données
 read -p "Entrez le nom de domaine (par exemple, example.com) : " domain
 read -p "Entrez le nom de la base de données : " dbname

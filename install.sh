@@ -14,11 +14,11 @@ color_text() {
 }
 
 # Affichage du menu
-color_text "32;1" "=== Menu d'information ==="
-read -p "$(color_text "36" 'Entrez le nom de domaine (par exemple, example.com) : ')" domain
-read -p "$(color_text "36" 'Entrez le nom de la base de données : ')" dbname
-read -p "$(color_text "36" 'Entrez le nom d\'utilisateur de la base de données : ')" dbuser
-read -s -p "$(color_text "36" 'Entrez le mot de passe de la base de données : ')" dbpass
+echo "=== Menu d'information ==="
+read -p 'Entrez le nom de domaine (par exemple, example.com) : ' domain
+read -p 'Entrez le nom de la base de données : ' dbname
+read -p 'Entrez le nom d\'utilisateur de la base de données : ' dbuser
+read -s -p 'Entrez le mot de passe de la base de données : ' dbpass
 echo
 
 # Calcul de la largeur des colonnes

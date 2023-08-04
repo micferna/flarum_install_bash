@@ -6,20 +6,6 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
-check_expect() {
-    if ! command -v expect &> /dev/null; then
-        echo "Le paquet 'expect' n'est pas installé."
-        read -p "Voulez-vous installer 'expect' maintenant ? (O/n) : " choice
-        if [[ $choice == "O" || $choice == "o" ]]; then
-            sudo apt install expect
-        else
-            echo "Vous devez installer 'expect' pour continuer l'exécution du script."
-            exit 1
-        fi
-    fi
-}
-check_expect
-
 # Demande les informations sur le domaine et la base de données
 clear
 read -p "Entrez le nom de domaine (par exemple, example.com) : " domain
@@ -81,7 +67,7 @@ sudo dpkg-reconfigure tzdata
 apt update && apt upgrade -y
 
 # Installe les paquets requis
-apt install -y zip unzip curl wget git php php-cli php-fpm php-common php-mbstring php-gd php-xml php-mysql php-curl php-zip mariadb-server nginx
+apt install -y zip unzip curl wget git php php-cli php-fpm php-common php-mbstring php-gd php-xml php-mysql php-curl php-zip mariadb-server nginx expect
 
 # Active les modules PHP nécessaires
 phpenmod dom gd json mbstring openssl pdo_mysql tokenizer

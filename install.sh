@@ -6,34 +6,12 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
-# Fonction pour afficher le texte en couleur
-color_text() {
-    local color="$1"
-    local text="$2"
-    echo -e "\e[${color}m${text}\e[0m"
-}
-
-# Affichage du menu
-echo "=== Menu d'information ==="
-read -p 'Entrez le nom de domaine (par exemple, example.com) : ' domain
-read -p 'Entrez le nom de la base de données : ' dbname
-read -p 'Entrez le nom d\'utilisateur de la base de données : ' dbuser
-read -s -p 'Entrez le mot de passe de la base de données : ' dbpass
+# Demande les informations sur le domaine et la base de données
+read -p "Entrez le nom de domaine (par exemple, example.com) : " domain
+read -p "Entrez le nom de la base de données : " dbname
+read -p "Entrez le nom d'utilisateur de la base de données : " dbuser
+read -s -p "Entrez le mot de passe de la base de données : " dbpass
 echo
-
-# Calcul de la largeur des colonnes
-col_width=0
-for ((i = 0; i < ${#table[@]}; i += 2)); do
-    len=${#table[i]}
-    if ((len > col_width)); then
-        col_width=$len
-    fi
-done
-
-# Affichage du tableau
-for ((i = 0; i < ${#table[@]}; i += 2)); do
-    printf "%-${col_width}s %s\n" "${table[i]}" "${table[i + 1]}"
-done
 
 # Fonction pour exécuter mysql_secure_installation
 secure_mysql() {
@@ -65,6 +43,7 @@ secure_mysql() {
     echo "$SECURE_MYSQL"
 }
 
+# Fonction pour installer Composer
 install_composer() {
     EXPECTED_SIGNATURE=$(wget -q -O - https://composer.github.io/installer.sig)
     php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
@@ -147,6 +126,9 @@ sudo -u www-data composer require flarum-lang/french
 
 # Plugin ajouté pour installer d'autres plugins Flarum plus rapidement.
 sudo -u www-data composer require bilgehanars/packman:"*" 
+sudo -u www-data composer require flarum/package-manager:"@beta"
+
+echo "Flarum a été installé avec succès sur $domain."
 sudo -u www-data composer require flarum/package-manager:"@beta"
 
 echo "Flarum a été installé avec succès sur $domain."

@@ -126,6 +126,6 @@ sudo -u www-data composer require flarum-lang/french
 
 # Plugin ajouté pour installer d'autres plugins Flarum plus rapidement.
 sudo -u www-data composer require bilgehanars/packman:"*" 
-sudo -u www-dat composer require flarum/package-manager:"@beta"
+sudo -u www-data composer require flarum/package-manager:"@beta"
 
 echo "Flarum a été installé avec succès sur $domain."

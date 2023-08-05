@@ -29,9 +29,21 @@ if ! echo "$domain" | grep -P "^((?!-)[A-Za-z0-9-]{1,63}(?<!-)\\.)+[A-Za-z]{2,6}
   exit 1
 fi
 
-# Demande l'adresse e-mail pour Certbot
-echo -e "\n${YELLOW}Adresse e-mail pour les notifications SSL:${NC}"
-read -p "Entrez votre adresse e-mail : " email
+# Demande à l'utilisateur s'il veut configurer SSL
+echo -e "\n${YELLOW}Voulez-vous configurer SSL HTTPS (Oui ou Non) ?${NC}"
+read -p "Oui ou Non : " configure_ssl
+
+if [[ $configure_ssl =~ ^[Oo][Uu][Ii]$ ]]; then
+    # Demande l'adresse e-mail pour Certbot si SSL est activé
+    echo -e "\n${YELLOW}Adresse e-mail pour les notifications SSL:${NC}"
+    read -p "Entrez votre adresse e-mail : " email
+
+    # Vérifie que l'adresse e-mail est valide
+    if ! echo "$email" | grep -P "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$" > /dev/null 2>&1; then
+      echo -e "${RED}L'adresse e-mail n'est pas valide.${NC}"
+      exit 1
+    fi
+fi
 
 # Vérifie que l'adresse e-mail est valide
 if ! echo "$email" | grep -P "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$" > /dev/null 2>&1; then
@@ -159,7 +171,9 @@ rm -rf /etc/nginx/sites-available/default
 rm -rf /etc/nginx/sites-enabled/default
 
 # Génération du ssl
-generate_ssl
+if [[ $configure_ssl =~ ^[Oo][Uu][Ii]$ ]]; then
+    generate_ssl
+fi
 
 # Teste la configuration de Nginx
 nginx -t

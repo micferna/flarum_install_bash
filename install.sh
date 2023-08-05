@@ -59,7 +59,9 @@ read -s -p "Entrez le mot de passe de la base de données : " dbpass
 echo
 
 generate_ssl() {
-    certbot --nginx --non-interactive --agree-tos --email $email -d $domain
+    if [[ $configure_ssl =~ ^[Oo][Uu][Ii]$ ]]; then
+        certbot --nginx --non-interactive --agree-tos --email $email -d $domain
+    fi
 }
 
 # Fonction pour exécuter mysql_secure_installation

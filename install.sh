@@ -45,12 +45,6 @@ if [[ $configure_ssl =~ ^[Oo][Uu][Ii]$ ]]; then
     fi
 fi
 
-# Vérifie que l'adresse e-mail est valide
-if ! echo "$email" | grep -P "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$" > /dev/null 2>&1; then
-  echo -e "${RED}L'adresse e-mail n'est pas valide.${NC}"
-  exit 1
-fi
-
 # Prompt pour le nom de la base de données
 echo -e "\n${YELLOW}Base de données:${NC}"
 read -p "Entrez le nom de la base de données : " dbname

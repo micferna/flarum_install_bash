@@ -139,6 +139,9 @@ install_composer
 mkdir -p /var/www/flarum
 chown -R www-data:www-data /var/www/flarum
 
+# Récupère la version principale et secondaire de PHP (par exemple, 8.2)
+php_version=$(php -r 'echo PHP_MAJOR_VERSION . "." . PHP_MINOR_VERSION;')
+
 # Configure Nginx pour Flarum
 cat <<EOF | tee /etc/nginx/sites-available/flarum.conf
 server {
@@ -154,7 +157,7 @@ server {
     }
 
     location ~* \.php$ {
-        fastcgi_pass unix:/run/php/php8.2-fpm.sock;
+        fastcgi_pass unix:/run/php/php$php_version-fpm.sock;
         include fastcgi_params;
         fastcgi_index index.php;
         fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
